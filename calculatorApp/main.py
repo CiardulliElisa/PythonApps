@@ -1,14 +1,30 @@
 # Imports
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont
 
 # App Settings
 app = QApplication([])
+
+#Style
+app.setStyleSheet("""
+QLineEdit {
+    background-color: #D3D3D3;
+    border-radius: 5px; 
+    padding: 20px;
+    font-size: 40px;
+}
+                  """)
+
 main_window = QWidget()
 main_window.setWindowTitle("Calculator")
 main_window.resize(550,650)
 
 # All objects/widgets
 text_box = QLineEdit()
+text_box.setAlignment(Qt.AlignRight)
+font = QFont("Courier New Bold", 40)
+text_box.setFont(font)
 grid = QGridLayout()
 
 buttons = [
@@ -18,13 +34,64 @@ buttons = [
   "0", ".", "=", "+"]
 
 clear = QPushButton("Clear")
+clear.setStyleSheet("""
+    QPushButton {
+    background-color: #D3D3D3;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 30px;
+    }
+    QPushButton:hover {
+        background-color: #FFFFE0;
+    }
+    """)
 delete = QPushButton("DEL")
+delete.setStyleSheet("""
+    QPushButton {
+    background-color: #D3D3D3;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 30px;
+    }
+    QPushButton:hover {
+        background-color: #FFCCCC;
+    }
+    """)
 
 row = 0
 col = 0
 
 for text in buttons:
   button = QPushButton(text)
+
+  button.setStyleSheet("""
+    QPushButton {
+    background-color: #D3D3D3;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 30px;
+    }
+    QPushButton:hover {
+        background-color: #ADD8E6;
+    }
+    """)
+  
+  try:
+    int(text)
+  except ValueError:
+    button.setStyleSheet("""
+            QPushButton {
+              background-color: #B3B3B3;
+              border-radius: 10px;
+              padding: 10px;
+              font-size: 30px;
+              font-weight: 450;
+            }
+            QPushButton:hover {
+              background-color: #7FB3D5;
+            }
+        """)
+
   #button.clicked.connect(None)
   grid.addWidget(button, row, col)
   col += 1
